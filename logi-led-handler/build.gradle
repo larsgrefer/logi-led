@@ -1,0 +1,18 @@
+plugins {
+    id "java-library"
+    id "io.freefair.lombok"
+}
+
+dependencies {
+    api files("$rootDir/led-sdk/LED/Lib/JNI/x64/logiled.jar").builtBy(rootProject.extractSdk)
+
+    implementation 'net.java.dev.jna:jna-platform:5.8.0'
+
+    testImplementation "org.assertj:assertj-core:3.19.0"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}

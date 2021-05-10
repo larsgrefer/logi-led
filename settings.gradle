@@ -1,4 +1,5 @@
-rootProject.name = 'logi-led-helper'
+rootProject.name = 'logi-led'
 
+include "logi-led-handler"
 include "logi-led-jna"
 include "screen-sampler"
