@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'io.freefair.lombok' version "5.3.3.3"
+}
+
+group 'de.larsgrefer'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 8
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+repositories {
+    ivy {
+        //https://www.logitechg.com/sdk/LED_SDK_9.00.zip
+        artifactPattern("https://www.logitechg.com/sdk/[artifact]_[revision].[ext]")
+        metadataSources {
+            artifact()
+        }
+    }
+}
+
+configurations {
+    ledSdk
+}
+
+dependencies {
+    ledSdk "logitechg:LED_SDK:9.00@zip"
+}
+
+task extractSdk(type: Copy) {
+    from zipTree(configurations.ledSdk.singleFile)
+    into "led-sdk"
+}
+
+dependencies {
+    implementation files("led-sdk/LED/Lib/JNI/x64/logiled.jar").builtBy(extractSdk)
+    implementation 'net.java.dev.jna:jna-platform:5.8.0'
+
+    testImplementation "org.assertj:assertj-core:3.19.0"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
