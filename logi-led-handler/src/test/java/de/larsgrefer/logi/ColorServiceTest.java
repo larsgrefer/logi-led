@@ -19,19 +19,4 @@ class ColorServiceTest {
 
         System.out.println(red.getRed());
     }
-
-    @Test
-    public void testAvgColor() throws IOException {
-        BufferedImage bufferedImage = ImageIO.read(getClass().getClassLoader().getResourceAsStream("screenshot_full2.png"));
-
-        ColorService colorService = new ColorService();
-
-        long start = System.nanoTime();
-        for (int i = 0; i < 50; i++) {
-            colorService.getAvgColor(bufferedImage);
-        }
-        Duration duration = Duration.ofNanos((System.nanoTime() - start) / 50);
-
-        System.out.println(duration.toMillis());
-    }
 }

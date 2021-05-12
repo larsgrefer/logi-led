@@ -1,6 +1,5 @@
-package de.larsgrefer.logi.cv;
+package de.larsgrefer.logi.jna.cv;
 
-import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.platform.win32.WinGDI;
 
 public interface WinGDIExtra extends WinGDI {

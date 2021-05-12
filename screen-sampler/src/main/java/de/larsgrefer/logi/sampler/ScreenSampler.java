@@ -1,7 +1,6 @@
 package de.larsgrefer.logi.sampler;
 
 import de.larsgrefer.logi.ColorService;
-import de.larsgrefer.logi.DelayedColorSetter;
 import de.larsgrefer.logi.LogiLedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
@@ -27,19 +26,8 @@ public class ScreenSampler {
     @Autowired
     private SamplerProperties samplerProperties;
 
-    DelayedColorSetter frontLeft;
-    DelayedColorSetter backLeft;
-    DelayedColorSetter frontRight;
-    DelayedColorSetter backRight;
-
     @PostConstruct
     public void init() {
-        frontLeft = new DelayedColorSetter(this::setFrontLeftColor);
-        backLeft = new DelayedColorSetter(this::setRearLeftColor);
-        frontRight = new DelayedColorSetter(this::setFrontRightColor);
-        backRight = new DelayedColorSetter(this::setRearRightColor);
-
-
         taskScheduler.scheduleAtFixedRate(this::updateLeds, samplerProperties.getRate());
     }
 

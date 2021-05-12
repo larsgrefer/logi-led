@@ -14,7 +14,18 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
+processResources {
+    dependsOn rootProject.extractSdk
+
+    from(file("$rootDir/led-sdk/LED/Lib/LogitechLedEnginesWrapper/x64")) {
+        into "win32-x86-64"
+    }
+    from(file("$rootDir/led-sdk/LED/Lib/LogitechLedEnginesWrapper/x86")) {
+        into "win32-x86-32"
+    }
+}
+
 test {
     useJUnitPlatform()
-    systemProperty("jna.debug_load", true)
+    //systemProperty("jna.debug_load", true)
 }

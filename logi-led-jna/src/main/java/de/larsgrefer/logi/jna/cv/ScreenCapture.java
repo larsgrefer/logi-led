@@ -1,15 +1,7 @@
-package de.larsgrefer.logi.cv;
+package de.larsgrefer.logi.jna.cv;
 
 import com.sun.jna.Memory;
-import com.sun.jna.Native;
 import com.sun.jna.platform.win32.*;
-import com.sun.jna.win32.W32APIOptions;
-import lombok.SneakyThrows;
-
-import java.awt.*;
-import java.awt.image.*;
-
-import static com.sun.jna.Pointer.NULL;
 
 public class ScreenCapture {
 

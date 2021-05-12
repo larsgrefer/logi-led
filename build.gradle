@@ -36,8 +36,3 @@ task extractSdk(type: Copy) {
     from zipTree(configurations.ledSdk.singleFile)
     into "led-sdk"
 }
-
-dependencies {
-
-
-}

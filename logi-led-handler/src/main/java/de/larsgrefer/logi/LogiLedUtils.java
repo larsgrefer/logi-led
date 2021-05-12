@@ -1,6 +1,5 @@
 package de.larsgrefer.logi;
 
-import com.sun.tools.javac.util.StringUtils;
 import lombok.experimental.UtilityClass;
 
 import java.awt.*;
@@ -24,11 +23,12 @@ public class LogiLedUtils {
     }
 
     public static int[] getApiColorValues(Color color) {
+        float[] components = color.getRGBColorComponents(null);
         int[] result = new int[3];
 
-        result[0] = (int) (color.getRed() / 255d * 100);
-        result[1] = (int) (color.getGreen() / 255d * 100);
-        result[2] = (int) (color.getBlue() / 255d * 100);
+        for (int i = 0; i < 3; i++) {
+            result[i] = (int) (components[i] * 100);
+        }
 
         return result;
     }

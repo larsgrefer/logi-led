@@ -10,12 +10,18 @@ import java.util.EnumSet;
 public class LogiLedHandler implements Closeable {
 
     public LogiLedHandler() {
-        LogiLED.LogiLedInit();
+        if (!LogiLED.LogiLedInit()) {
+            throw new IllegalStateException("LogiLedInit returned false");
+        }
     }
 
     public LogiLedHandler(String name) {
         if (!LogiLED.LogiLedInitWithName(LogiLedUtils.getFixedCharArray(name))) {
             throw new IllegalStateException("LogiLedInitWithName returned false");
+        }
+        try {
+            Thread.sleep(2);
+        } catch (InterruptedException ignored) {
         }
     }
 
@@ -27,16 +33,14 @@ public class LogiLedHandler implements Closeable {
     public double getConfigOptionNumber(String name, double defaultValue) {
         LogiLedUtils.validateConfigName(name);
 
-        LogiLED.LogiLedSetConfigOptionLabel(name, name);
-
         return LogiLED.LogiLedGetConfigOptionNumber(name, defaultValue);
     }
 
-    public synchronized void setLightingForTargetZone(DeviceType type, int zone, Color color) {
+    public void setLightingForTargetZone(DeviceType type, int zone, Color color) {
         setLightingForTargetZone(type.value, zone, color);
     }
 
-    public synchronized void setLightingForTargetZone(EnumSet<DeviceType> types, int zone, Color color) {
+    public void setLightingForTargetZone(EnumSet<DeviceType> types, int zone, Color color) {
         int type = 0;
 
         for (DeviceType deviceType : types) {
@@ -46,7 +50,7 @@ public class LogiLedHandler implements Closeable {
         setLightingForTargetZone(type, zone, color);
     }
 
-    public synchronized void setLightingForTargetZone(int type, int zone, Color color) {
+    public void setLightingForTargetZone(int type, int zone, Color color) {
         int[] apiColorValues = LogiLedUtils.getApiColorValues(color);
 
         boolean success = LogiLED.LogiLedSetLightingForTargetZone(type, zone, apiColorValues[0], apiColorValues[1], apiColorValues[2]);
@@ -57,11 +61,11 @@ public class LogiLedHandler implements Closeable {
 
     @RequiredArgsConstructor
     public enum DeviceType {
-        Keyboard(0x0),
-        Mouse(0x3),
-        Mousemat(0x4),
-        Headset(0x8),
-        Speaker(0xE);
+        Keyboard(LogiLED.DeviceType_Keyboard),
+        Mouse(LogiLED.DeviceType_Mouse),
+        Mousemat(LogiLED.DeviceType_Mousemat),
+        Headset(LogiLED.DeviceType_Headset),
+        Speaker(LogiLED.DeviceType_Speaker);
 
         private final int value;
     }
