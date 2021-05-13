@@ -13,6 +13,10 @@ public class LogiLedHandler implements Closeable {
         if (!LogiLED.LogiLedInit()) {
             throw new IllegalStateException("LogiLedInit returned false");
         }
+        try {
+            Thread.sleep(5);
+        } catch (InterruptedException ignored) {
+        }
     }
 
     public LogiLedHandler(String name) {
@@ -20,7 +24,7 @@ public class LogiLedHandler implements Closeable {
             throw new IllegalStateException("LogiLedInitWithName returned false");
         }
         try {
-            Thread.sleep(2);
+            Thread.sleep(5);
         } catch (InterruptedException ignored) {
         }
     }
