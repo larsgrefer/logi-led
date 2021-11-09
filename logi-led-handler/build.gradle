@@ -6,7 +6,7 @@ plugins {
 dependencies {
     api files("$rootDir/led-sdk/LED/Lib/JNI/x64/logiled.jar").builtBy(rootProject.extractSdk)
 
-    implementation 'net.java.dev.jna:jna-platform:5.9.0'
+    implementation 'net.java.dev.jna:jna-platform:5.10.0'
 
     testImplementation "org.assertj:assertj-core:3.21.0"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
