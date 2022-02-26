@@ -1,11 +1,13 @@
 package de.larsgrefer.logi.sample;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@EnabledIfSystemProperty(named = "java.awt.headless", matches = "false")
 class SampleServiceTest {
 
     @Test
